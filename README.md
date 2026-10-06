@@ -52,3 +52,10 @@ If you need live updates, rebuild the `FlagSet`.
 - `FlagSet.to_json() / FlagSet.from_json(data)` — serialise the whole set.
 - `evaluate_flag(flag, identifier) -> bool` — convenience wrapper for a
   single `Flag`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
